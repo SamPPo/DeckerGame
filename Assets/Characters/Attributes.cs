@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Attributes_Scr : MonoBehaviour
+public class Attributes : MonoBehaviour
 {
     private int Health;
     public int MaxHealth;
@@ -18,6 +18,7 @@ public class Attributes_Scr : MonoBehaviour
         Armor = SetArmor;
     }
 
+    /*
     [ContextMenu("TestClick")]
     public void Test()
     {
@@ -28,11 +29,15 @@ public class Attributes_Scr : MonoBehaviour
         print("Armor");
         print(Armor);
     }
+    */
 
     public void DealDamage(int Amount)
     {
         int AmountDelta = Amount;
-        AmountDelta = SubtractArmor(AmountDelta);
+        if (Armor > 0)
+        {
+            AmountDelta = SubtractArmor(AmountDelta);
+        }
         SubtractHealth(AmountDelta);
     }
     public void GiveArmor(int Amount)
@@ -53,6 +58,7 @@ public class Attributes_Scr : MonoBehaviour
         {
             Delta = Amount - Armor;
             Armor = 0;
+            ArmorDestroyed();
         }
         else
         {
