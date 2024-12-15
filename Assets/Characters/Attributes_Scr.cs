@@ -8,9 +8,9 @@ public class Attributes_Scr : MonoBehaviour
     public int SetArmor;
     private int Initiative;
 
-    private int HealthDelta;
-    private int ArmorDelta;
     private int DamageDelta;
+
+ 
 
     private void Start()
     {
@@ -31,86 +31,66 @@ public class Attributes_Scr : MonoBehaviour
 
     public void DealDamage(int Amount)
     {
-        int DamageAmount = -Amount;
-        DamageAmount = -ModifyArmor(DamageAmount);
-        ModifyHealth(DamageAmount);
+        int AmountDelta = Amount;
+        AmountDelta = SubtractArmor(AmountDelta);
+        SubtractHealth(AmountDelta);
     }
-
     public void GiveArmor(int Amount)
     {
-        ModifyArmor(Amount);
+        AddArmor(Amount);
     }
 
     public void GiveHealth(int Amount)
     {
-        ModifyHealth(Amount);
+        AddHealth(Amount);
     }
 
-    private void ModifyHealth(int Amount)
+    private int SubtractArmor(int Amount)
     {
+        int Delta;
 
-        if (Amount == 0)
+        if (Amount > Armor)
         {
-            HealthDelta = 0;
-        }
-        else if (Amount < 0)
-        {
-            HealthDelta = Health;
-            Health += Amount;
-            if (Health <= 0)
-            {
-                CharacterDied();
-            }
-            else
-            {
-                HealthDelta = Amount;
-            }
+            Delta = Amount - Armor;
+            Armor = 0;
         }
         else
         {
-            HealthDelta = MaxHealth - Health;
-            Health += Amount;
-            if (Health >= MaxHealth)
-            {
-                Health = MaxHealth;
-            }
-            else 
-            {
-                HealthDelta = Amount;
-            }
+            Delta = 0;
+            Armor -= Amount;
         }
-
+        return Delta;
     }
-    private int ModifyArmor(int Amount)
-    {
 
-        if (Amount == 0)
+    private void SubtractHealth(int Amount)
+    {
+        
+        if (Amount >= Health)
         {
-            ArmorDelta = 0;
-        }
-        else if (Amount < 0)
-        {
-            ArmorDelta = Armor;
-            Armor += Amount;
-            if (Armor <= 0)
-            {
-                ArmorDestroyed();
-            }
-            else
-            {
-                ArmorDelta = Amount;
-            }
+            Health = 0;
+            CharacterDied();
         }
         else
         {
-            ArmorDelta = Amount;
-            Armor += Amount;
+            Health -= Amount;
         }
-        DamageDelta = Amount - ArmorDelta;
-        return DamageDelta;
-
+        
     }
 
+    private void AddArmor(int Amount)
+    {
+        Armor += Amount;
+    }
+    private void AddHealth(int Amount)
+    {
+        Health += Amount;
+
+        if (Health > MaxHealth)
+        {
+            Health = MaxHealth;
+        }
+    }
+    
     void CharacterDied()
     {
 
