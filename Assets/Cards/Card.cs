@@ -24,7 +24,7 @@ public class Card : MonoBehaviour
 
 public struct CardSetup
 {
-    List<GameObject> CardEffects;
+    List<CardEffect> CardEffects;
     bool EndTurn;
     bool Spend;
 }
