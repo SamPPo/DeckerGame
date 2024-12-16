@@ -42,9 +42,8 @@ GameObject:
   - component: {fileID: 7891257805018426501}
   - component: {fileID: 2852898308685709655}
   - component: {fileID: 5062674298553808378}
-  - component: {fileID: 7693780047919746676}
   m_Layer: 0
-  m_Name: CharacterController_pfab
+  m_Name: Controller_pfab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,20 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f72cb75e4051c384d83a5e6422536336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7693780047919746676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7214394539926290034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93d6c93b7ac723e409ea27f444c029fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxHealth: 0
-  SetArmor: 0
 --- !u!1 &7769457788215608461
 GameObject:
   m_ObjectHideFlags: 0

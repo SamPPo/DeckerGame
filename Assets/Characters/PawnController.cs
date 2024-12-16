@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class CharacterController : MonoBehaviour
+public class PawnController : MonoBehaviour
 {
     [SerializeField]
     private GameObject Character_pfab;
