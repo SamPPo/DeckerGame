@@ -1,7 +1,10 @@
+using JetBrains.Annotations;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Decker;
+using System;
 
 public class PawnController : MonoBehaviour
 {
@@ -15,19 +18,12 @@ public class PawnController : MonoBehaviour
     private Transform PlayPileTransform;
     [SerializeField]
     private Transform DeckTransform;
+    private GameObject targetPawn;
 
     public delegate void OnTurnEnd();
     public static OnTurnEnd onTurnEnd;
 
-    /*
-    [ContextMenu("GetTopCard")]
-    public void Debug()
-    {
-        print(GetDeckTopCard());
-    }
-    */
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         SpawnCharacter();
@@ -60,12 +56,28 @@ public class PawnController : MonoBehaviour
     {
         Card.onCardPlayEnd += CardPlayDone;
         Transform CurrentCard = TakeDeckTopCard();
-        CurrentCard.GetComponent<Card>().PlayCard(PlayPileTransform.transform);
+        CurrentCard.GetComponent<Card>().PlayCard(PlayPileTransform.transform, this);
     }
     void CardPlayDone()
     {
         Card.onCardPlayEnd -= CardPlayDone;
         onTurnEnd();
+    }
+
+    public GameObject GetTarget(Targetting target)
+    {
+        
+        switch (target)
+        {
+            case Targetting.hostile:
+                break;
+            case Targetting.ally:
+                break;
+            case Targetting.self:
+                targetPawn = this.gameObject;
+                break;
+        }
+        return targetPawn;
     }
 
 }

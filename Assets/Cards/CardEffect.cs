@@ -1,5 +1,14 @@
 using UnityEngine;
 
+namespace Decker
+{
+    public enum Targetting
+    {
+        hostile,
+        ally,
+        self
+    }
+}
 public abstract class CardEffect : MonoBehaviour
 {
     public enum EffectTypes
@@ -11,18 +20,25 @@ public abstract class CardEffect : MonoBehaviour
         special
     }
 
-    public EffectTypes effectTypes;
+   
+
+    public EffectTypes effectType;
     public int magnitude;
 
+    private PawnController controller;
     private GameObject target;
 
-
+    public void SetTarget(GameObject Target)
+    {
+        target = Target;
+    }
   
 
-    public void PlayEffect(EffectTypes type)
+    public void PlayEffect(PawnController Controller)
     {
+        controller = Controller;
         
-        switch (type)
+        switch (effectType)
         {
             case EffectTypes.dealDamage:
                 DealDamage();
