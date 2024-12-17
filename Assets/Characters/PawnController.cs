@@ -16,6 +16,9 @@ public class PawnController : MonoBehaviour
     [SerializeField]
     private Transform DeckTransform;
 
+    public delegate void OnTurnEnd();
+    public static OnTurnEnd onTurnEnd;
+
     /*
     [ContextMenu("GetTopCard")]
     public void Debug()
@@ -53,16 +56,16 @@ public class PawnController : MonoBehaviour
     }
     
     [ContextMenu("PlayTurn")]
-    void PlayTurn()
+    public void PlayTurn()
     {
-
         Card.onCardPlayEnd += CardPlayDone;
         Transform CurrentCard = TakeDeckTopCard();
         CurrentCard.GetComponent<Card>().PlayCard(PlayPileTransform.transform);
     }
     void CardPlayDone()
     {
-       
+        Card.onCardPlayEnd -= CardPlayDone;
+        onTurnEnd();
     }
 
 }

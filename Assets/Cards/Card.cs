@@ -17,7 +17,6 @@ public class Card : MonoBehaviour
     {
         gameObject.transform.position = PlayPileTransform.position;
         gameObject.transform.localScale = PlayPileTransform.localScale;
-        print(gameObject.transform.position.ToString());
         onCardPlayEnd();
     }
 }

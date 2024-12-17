@@ -40,8 +40,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7891257805018426501}
-  - component: {fileID: 2852898308685709655}
   - component: {fileID: 5062674298553808378}
+  - component: {fileID: 4665157890125492683}
   m_Layer: 0
   m_Name: Controller_pfab
   m_TagString: Untagged
@@ -66,7 +66,19 @@ Transform:
   - {fileID: 1307298052392597513}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2852898308685709655
+--- !u!114 &5062674298553808378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7214394539926290034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f72cb75e4051c384d83a5e6422536336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4665157890125492683
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,18 +97,6 @@ MonoBehaviour:
   - {fileID: 6767535662270185718, guid: 8b81b304b42a401428e7bdfdb5ee4a7d, type: 3}
   PlayPileTransform: {fileID: 8799482547362586111}
   DeckTransform: {fileID: 1307298052392597513}
---- !u!114 &5062674298553808378
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7214394539926290034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f72cb75e4051c384d83a5e6422536336, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7769457788215608461
 GameObject:
   m_ObjectHideFlags: 0
