@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 7891257805018426501}
   - component: {fileID: 5062674298553808378}
   - component: {fileID: 4665157890125492683}
+  - component: {fileID: 5329683327125137450}
   m_Layer: 0
   m_Name: Controller_pfab
   m_TagString: Untagged
@@ -97,6 +98,23 @@ MonoBehaviour:
   - {fileID: 6767535662270185718, guid: 8b81b304b42a401428e7bdfdb5ee4a7d, type: 3}
   PlayPileTransform: {fileID: 8799482547362586111}
   DeckTransform: {fileID: 1307298052392597513}
+  gameMaster: {fileID: 0}
+  faction: 0
+--- !u!114 &5329683327125137450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7214394539926290034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93d6c93b7ac723e409ea27f444c029fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHealth: 50
+  SetArmor: 0
+  healthBar: {fileID: 6114462193624645649, guid: a2bd50572fc5bb24cbd6bbd431309922, type: 3}
 --- !u!1 &7769457788215608461
 GameObject:
   m_ObjectHideFlags: 0

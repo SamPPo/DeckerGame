@@ -18,8 +18,10 @@ public class PawnController : MonoBehaviour
     private Transform PlayPileTransform;
     [SerializeField]
     private Transform DeckTransform;
-    private GameObject targetPawn;
+    private PawnController target;
 
+    public GameMaster gameMaster;
+    public Faction faction;
     public delegate void OnTurnEnd();
     public static OnTurnEnd onTurnEnd;
 
@@ -64,20 +66,40 @@ public class PawnController : MonoBehaviour
         onTurnEnd();
     }
 
-    public GameObject GetTarget(TargettingType target)
+    public PawnController GetTarget(TargettingType t)
     {
         
-        switch (target)
+        switch (t)
         {
             case TargettingType.hostile:
+                if (faction == Faction.player)
+                {
+                    foreach (PawnController item in gameMaster.pawnControllers)
+                    {
+                        if (item.faction == Faction.enemy)
+                        {
+                            target = item;
+                        }
+                    }
+                }
+                else if (faction == Faction.enemy)
+                {
+                    foreach (PawnController item in gameMaster.pawnControllers)
+                    {
+                        if (item.faction == Faction.player)
+                        {
+                            target = item;
+                        }
+                    }
+                }
                 break;
             case TargettingType.ally:
                 break;
             case TargettingType.self:
-                targetPawn = this.gameObject;
+                target = this;
                 break;
         }
-        return targetPawn;
+        return target;
     }
 
 }

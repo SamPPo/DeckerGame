@@ -29,9 +29,12 @@ public class Card : MonoBehaviour
 
     void PlayCardEffects()
     {
+        if (cardEffects.Count > 0)
+        { 
         foreach (CardEffect_Base item in cardEffects)
         {
             item.PrepareEffect(controller);
+        }
         }
 
     }

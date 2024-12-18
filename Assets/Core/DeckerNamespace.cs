@@ -16,5 +16,12 @@ namespace Decker
         giveArmor,
         special
     }
+
+    public enum Faction
+    {
+        enemy,
+        player,
+        neutral
+    }
 }
 

@@ -47,9 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardEffects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 3ac4a3733d6d8974cbfd272a9afa59c0, type: 2}
   endTurn: 0
   spend: 0
 --- !u!33 &4373740712724380531

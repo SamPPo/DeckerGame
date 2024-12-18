@@ -8,19 +8,30 @@ public class GameMaster : MonoBehaviour
     [SerializeField]
     private List<Transform> spawnPoints = new();
     [SerializeField]
-    private GameObject pawnController;
+    private GameObject controllerpfab;
+    private PawnController pawnController;
 
-    private List<GameObject> pawnControllers = new();
+    public List<PawnController> pawnControllers = new();
     int turnIndex = 0;
 
     void Start()
     {
+        int i = 0;
         foreach (Transform t in spawnPoints)
         {
-            GameObject item = Instantiate(pawnController);
-            item.transform.position = t.position;
-            item.transform.rotation = t.rotation;
+            PawnController item = Instantiate(controllerpfab).GetComponent<PawnController>();
+            if(i < 3)
+            { 
+                item.faction = Decker.Faction.player;
+            }
+            else
+            {
+                item.faction = Decker.Faction.enemy;
+            }
+            item.gameMaster = this;
+            item.transform.SetPositionAndRotation(t.position, t.rotation);
             pawnControllers.Add(item);
+            i++;
         }
         
     }
@@ -58,5 +69,6 @@ public class GameMaster : MonoBehaviour
         PlayRound();
 
     }
+
 
 }

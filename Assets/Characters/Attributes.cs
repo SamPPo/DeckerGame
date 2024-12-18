@@ -10,26 +10,16 @@ public class Attributes : MonoBehaviour
 
     private int DamageDelta;
 
+    public GameObject healthBar;
  
 
     private void Start()
     {
         Health = MaxHealth;
         Armor = SetArmor;
+        //healthBar.GetComponent<HealthBar>().SetMaxHealth(MaxHealth);
+        //healthBar = Instantiate(HP_Bar)
     }
-
-    /*
-    [ContextMenu("TestClick")]
-    public void Test()
-    {
-        int Amount = 5;
-        DealDamage(Amount);
-        print("Health");
-        print(Health);
-        print("Armor");
-        print(Armor);
-    }
-    */
 
     public void DealDamage(int Amount)
     {
@@ -80,6 +70,7 @@ public class Attributes : MonoBehaviour
         {
             Health -= Amount;
         }
+        healthBar.GetComponent<HealthBar>().UpdateHealth(Health);
         
     }
 
@@ -95,6 +86,7 @@ public class Attributes : MonoBehaviour
         {
             Health = MaxHealth;
         }
+        healthBar.GetComponent<HealthBar>().UpdateHealth(Health);
     }
     
     void CharacterDied()
