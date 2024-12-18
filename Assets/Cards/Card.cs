@@ -8,7 +8,7 @@ public class Card : MonoBehaviour
     public static OnCardPlayEnd onCardPlayEnd;
 
     PawnController controller;
-    public List<CardEffect> cardEffects;
+    public List<CardEffect_Base> cardEffects;
     public bool endTurn;
     public bool spend;
 
@@ -29,9 +29,9 @@ public class Card : MonoBehaviour
 
     void PlayCardEffects()
     {
-        foreach (CardEffect item in cardEffects)
+        foreach (CardEffect_Base item in cardEffects)
         {
-            item.PlayEffect(controller);
+            item.PrepareEffect(controller);
         }
 
     }

@@ -31,7 +31,6 @@ public class GameMaster : MonoBehaviour
         var currentController = pawnControllers[turnIndex].GetComponent<PawnController>();
         PawnController.onTurnEnd += StartWaitAfterTurnEnd;
         currentController.PlayTurn();
-        print("" + Time.frameCount + currentController);
     }
 
 

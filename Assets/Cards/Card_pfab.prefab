@@ -46,10 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e282a8bf545604459227dc8efffe226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardEffects:
+  cardEffects:
   - {fileID: 0}
-  EndTurn: 0
-  Spend: 0
+  - {fileID: 0}
+  - {fileID: 0}
+  endTurn: 0
+  spend: 0
 --- !u!33 &4373740712724380531
 MeshFilter:
   m_ObjectHideFlags: 0

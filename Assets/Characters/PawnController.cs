@@ -64,16 +64,16 @@ public class PawnController : MonoBehaviour
         onTurnEnd();
     }
 
-    public GameObject GetTarget(Targetting target)
+    public GameObject GetTarget(TargettingType target)
     {
         
         switch (target)
         {
-            case Targetting.hostile:
+            case TargettingType.hostile:
                 break;
-            case Targetting.ally:
+            case TargettingType.ally:
                 break;
-            case Targetting.self:
+            case TargettingType.self:
                 targetPawn = this.gameObject;
                 break;
         }
