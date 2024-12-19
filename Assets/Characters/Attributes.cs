@@ -7,17 +7,17 @@ public class Attributes : MonoBehaviour
     private int Armor;
     public int SetArmor;
     private int Initiative;
-
     private int DamageDelta;
 
-    public GameObject healthBar;
+    [SerializeField]
+    private GameObject healthBar;
  
 
     private void Start()
     {
         Health = MaxHealth;
         Armor = SetArmor;
-        //healthBar.GetComponent<HealthBar>().SetMaxHealth(MaxHealth);
+        healthBar.GetComponent<HealthBar>().SetMaxHealth(MaxHealth);
         //healthBar = Instantiate(HP_Bar)
     }
 
