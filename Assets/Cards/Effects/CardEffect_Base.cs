@@ -10,7 +10,7 @@ public abstract class CardEffect_Base : ScriptableObject
     public string effectName;
     public int magnitude;
     
-
+    //setup controller and target for effect
     public void PrepareEffect(PawnController pawnController)
     {
         controller = pawnController;
@@ -19,9 +19,13 @@ public abstract class CardEffect_Base : ScriptableObject
         {
             Debug.Log("null BRO");
         }
-        ApplyEffect();
+        else
+        {
+            ApplyEffect();
+        }
     }
 
+    //activate effect. Implemented in inherited card effects.
     public abstract void ApplyEffect();
     
 }

@@ -16,6 +16,7 @@ public class GameMaster : MonoBehaviour
 
     void Start()
     {
+        //Set factions of pawns for Debug purposes. Do it better later.
         int i = 0;
         foreach (Transform t in spawnPoints)
         {
@@ -36,6 +37,7 @@ public class GameMaster : MonoBehaviour
         
     }
 
+    //Get controller from list based on "turnIndex" and activate it. Add delegate to event "StartWaitAfterTurnEnd"
     [ContextMenu("PlayRound")]
     void PlayRound()
     {
@@ -44,20 +46,21 @@ public class GameMaster : MonoBehaviour
         currentController.PlayTurn();
     }
 
-
-
+    //Start couroutine after turnd ended for pawn
     void StartWaitAfterTurnEnd()
     {
         PawnController.onTurnEnd -= StartWaitAfterTurnEnd;
         StartCoroutine(WaitAfterTurnEnd());
     }
 
+    //Wait after turn ended for pawn and activate Turn End
     IEnumerator WaitAfterTurnEnd()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(PublicVariables.TimeAfterPawnTurn);
         TurnEnd();
     }
 
+    //Add to turn index and activate next round
     void TurnEnd()
     {
 

@@ -23,5 +23,6 @@ namespace Decker
         player,
         neutral
     }
+
 }
 
