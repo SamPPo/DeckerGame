@@ -12,35 +12,35 @@ public class GameMaster : MonoBehaviour
     private PawnController pawnController;
 
     public List<PawnController> pawnControllers = new();
-    int turnIndex = 0;
+    private int turnIndex = 0;
 
     void Start()
     {
-        //Set factions of pawns for Debug purposes. Do it better later.
+        InitializePawns();        
+    }
+
+    // Initialize pawns and set their factions
+    private void InitializePawns()
+    {
         int i = 0;
         foreach (Transform t in spawnPoints)
         {
             PawnController item = Instantiate(controllerpfab).GetComponent<PawnController>();
-            if(i < 3)
-            { 
-                item.faction = Decker.Faction.player;
-            }
-            else
-            {
-                item.faction = Decker.Faction.enemy;
-            }
+            item.faction = i < 3 ? Decker.Faction.player : Decker.Faction.enemy;
             item.gameMaster = this;
             item.transform.SetPositionAndRotation(t.position, t.rotation);
             pawnControllers.Add(item);
             i++;
         }
-        
     }
 
     //Get controller from list based on "turnIndex" and activate it. Add delegate to event "StartWaitAfterTurnEnd"
     [ContextMenu("PlayRound")]
     void PlayRound()
     {
+        //make sure there are controllers
+        if (pawnControllers.Count == 0) return;
+
         var currentController = pawnControllers[turnIndex].GetComponent<PawnController>();
         PawnController.onTurnEnd += StartWaitAfterTurnEnd;
         currentController.PlayTurn();
@@ -63,14 +63,8 @@ public class GameMaster : MonoBehaviour
     //Add to turn index and activate next round
     void TurnEnd()
     {
-
-        turnIndex++;
-        if (turnIndex >= pawnControllers.Count)
-        {
-            turnIndex = 0;
-        }
+        turnIndex = (turnIndex + 1) % pawnControllers.Count;
         PlayRound();
-
     }
 
 

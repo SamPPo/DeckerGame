@@ -15,7 +15,7 @@ public class PawnController : MonoBehaviour
     private GameObject Character_pfab;
     [SerializeField]
     private List<GameObject> PreviewDeck = new();
-    private List<Transform> Deck = new();
+    public List<Transform> Deck = new();
     private List<Transform> PlayPile = new();
     [SerializeField]
     private Transform PlayPileTransform;
@@ -26,9 +26,6 @@ public class PawnController : MonoBehaviour
     public GameMaster gameMaster;
     public Faction faction;
 
-    private bool end;
-    private bool spend;
-
     //Public delegates 
     public delegate void OnTurnEnd();
     public static OnTurnEnd onTurnEnd;
@@ -36,6 +33,12 @@ public class PawnController : MonoBehaviour
 
     void Start()
     {
+        if (PlayPileTransform == null || DeckTransform == null)
+        {
+            Debug.LogError("Transforms are not assigned.");
+            return;
+        }
+
         PlayPileTransform.rotation = Quaternion.LookRotation(new Vector3(0f, 0f, -1f), new Vector3(0f, 1f, 0f));
         DeckTransform.rotation = Quaternion.LookRotation(new Vector3(0f, 0f, -1f), new Vector3(0f, -1f, 0f));
         SpawnCharacter();
@@ -44,6 +47,12 @@ public class PawnController : MonoBehaviour
 
     void SpawnCharacter()
     {
+        if (Character_pfab == null)
+        {
+            Debug.LogError("Character prefab is not assigned.");
+            return;
+        }
+
         Instantiate(Character_pfab, transform.position, transform.rotation);
     }
 
@@ -63,16 +72,19 @@ public class PawnController : MonoBehaviour
     public void PlayTurn()
     {
         var pos = PlayPileTransform.position + PublicVariables.CardThickness * PlayPile.Count * Vector3.up;
+        StTransform targetT;
+        targetT.pos = pos;
+        targetT.rot = PlayPileTransform.rotation;
+        targetT.sca = PlayPileTransform.localScale;
         if (Deck.Count > 0)
         {
             Transform CurrentCard = TakeDeckTopCard();
             Card.onCardPlayEnd += StartWaitAfterCardPlay;
-            CurrentCard.GetComponent<Card>().PlayCard(pos, PlayPileTransform.rotation, PlayPileTransform.localScale, this);
+            CurrentCard.GetComponent<Card>().PlayCard(targetT, this);
         }
         else
         {
-            ReshuffleDeck();
-            StartCoroutine(WaitAfterCardPlay(true));
+            StartCoroutine(ReshuffleDeck());
         }
     }
 
@@ -97,7 +109,7 @@ public class PawnController : MonoBehaviour
         yield return new WaitForSeconds(PublicVariables.TimeAfterCardPlay);
         if (B)
         {
-            onTurnEnd();
+            onTurnEnd?.Invoke();
         }
         else
         {
@@ -113,8 +125,9 @@ public class PawnController : MonoBehaviour
     }
 
     //Reshuffle deck and move the card to deck
-    public void ReshuffleDeck()
+    public IEnumerator ReshuffleDeck()
     {
+        // Move cards from PlayPile back to Deck
         int i = 1;
         foreach (var item in PlayPile)
         {
@@ -122,46 +135,80 @@ public class PawnController : MonoBehaviour
             item.transform.localScale = DeckTransform.localScale;
             i++;
             Deck.Add(item);
-
         }
         PlayPile.Clear();
+
+        // Visual shuffling effect
+        for (int shuffleCount = 0; shuffleCount < 3; shuffleCount++)
+        {
+            for (int j = 0; j < Deck.Count; j++)
+            {
+                Transform card = Deck[j];
+                Vector3 shuffleOffset = new Vector3(UnityEngine.Random.Range(-0.2f, 0.2f), 0, UnityEngine.Random.Range(-0.2f, 0.2f));
+                card.position += shuffleOffset;
+                yield return new WaitForSeconds(0.05f);
+                card.position -= shuffleOffset;
+            }
+        }
+
+        // Continue the game after reshuffling
+        StartCoroutine(WaitAfterCardPlay(true));
     }
 
-    //Get target for card effect based on Targetting enum and Faction enum (in Decker namespace).
+    //Get closest target for card effect based on Targetting enum and Faction enum (in Decker namespace).
     public PawnController GetTarget(TargettingType t)
     {
-        
+        float closestDistance = float.MaxValue;
+        PawnController closestTarget = null;
+
         switch (t)
         {
             case TargettingType.hostile:
-                if (faction == Faction.player)
+                foreach (var item in gameMaster.pawnControllers)
                 {
-                    foreach (PawnController item in gameMaster.pawnControllers)
+                    if (item.faction != faction)
                     {
-                        if (item.faction == Faction.enemy)
+                        float distance = Vector3.Distance(transform.position, item.transform.position);
+                        if (distance < closestDistance)
                         {
-                            target = item;
-                        }
-                    }
-                }
-                else if (faction == Faction.enemy)
-                {
-                    foreach (PawnController item in gameMaster.pawnControllers)
-                    {
-                        if (item.faction == Faction.player)
-                        {
-                            target = item;
+                            closestDistance = distance;
+                            closestTarget = item;
                         }
                     }
                 }
                 break;
+
             case TargettingType.ally:
+                foreach (var item in gameMaster.pawnControllers)
+                {
+                    if (item.faction == faction && item != this)
+                    {
+                        float distance = Vector3.Distance(transform.position, item.transform.position);
+                        if (distance < closestDistance)
+                        {
+                            closestDistance = distance;
+                            closestTarget = item;
+                        }
+                    }
+                }
                 break;
+
             case TargettingType.self:
-                target = this;
+                closestTarget = this;
                 break;
         }
+
+        target = closestTarget;
         return target;
     }
 
+    public StTransform GetDeckTopSpot()
+    {
+        StTransform stTransform;
+        stTransform.rot = DeckTransform.rotation;
+        stTransform.sca = DeckTransform.localScale;
+        stTransform.pos = DeckTransform.position + (PublicVariables.CardThickness * Deck.Count * Vector3.up);
+
+        return stTransform;
+    }
 }
