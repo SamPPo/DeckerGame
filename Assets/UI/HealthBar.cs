@@ -1,10 +1,12 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    public Slider slider;
+    public Slider slider1;
+    public Slider slider2;
     public TextMeshProUGUI number;
 
     private void Start()
@@ -14,14 +16,23 @@ public class HealthBar : MonoBehaviour
 
     public void SetMaxHealth(int Health)
     {
-        slider.maxValue = Health;
-        slider.value = Health;
+        slider1.maxValue = Health;
+        slider2.maxValue = Health;
+        slider1.value = Health;
+        slider2.value = Health;
         number.text = Health.ToString();
     }
 
     public void UpdateHealth(int Health)
     {
-        slider.value = Health;
+        slider1.value = Health;
         number.text = Health.ToString();
+        StartCoroutine(UpdateSlider2(Health));
+    }
+
+    IEnumerator UpdateSlider2(int Health)
+    {
+        yield return new WaitForSeconds(1f);
+        slider2.value = Health;
     }
 }

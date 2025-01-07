@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Attributes : MonoBehaviour
+public class Attributes_Sc : MonoBehaviour
 {
     private int Health;
     public int MaxHealth;

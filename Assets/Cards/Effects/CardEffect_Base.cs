@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 public abstract class CardEffect_Base : ScriptableObject
 {
-    private PawnController controller;
-    public PawnController target;
-    public Card card;
+    private PawnController_Sc controller;
+    public PawnController_Sc target;
+    public IEffect effectOwner;
 
     public string bodyText;
     public TargettingType targettingType;
@@ -18,10 +18,10 @@ public abstract class CardEffect_Base : ScriptableObject
     public static OnEffectEnd onEffectEnd;
 
     //setup controller and effect owner card
-    public void InitializeOwners(PawnController Ocontroller, Card Ocard)
+    public void InitializeOwners(PawnController_Sc c1, IEffect c2)
     {
-        controller = Ocontroller;
-        card = Ocard;
+        controller = c1;
+        effectOwner = c2;
     }
 
     //setup controller and target for effect

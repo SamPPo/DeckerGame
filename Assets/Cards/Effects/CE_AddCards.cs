@@ -19,14 +19,14 @@ public class CE_AddCards : CardEffect_Base
 
     void SpawnAndMoveCards()
     {
-        Card.onMoveEnd += CardAddMoveComplete;
+        Card_Sc.onMoveEnd += CardAddMoveComplete;
         i = 0;
         foreach (Card_SO item in card_SOs)
         {
 
             // Instantiate the new card
             var newCard = Instantiate(gameObject, card.gameObject.transform.position + (Vector3.up * (0.2f + (PublicVariables.CardThickness * i))) + (Vector3.back * (i + PublicVariables.CardWidth)), card.gameObject.transform.rotation);
-            var c = newCard.GetComponent<Card>();
+            var c = newCard.GetComponent<Card_Sc>();
             c.CSO = item;
             c.controller = target;
             c.controller.Deck.Add(newCard.transform);
@@ -35,7 +35,7 @@ public class CE_AddCards : CardEffect_Base
             StTransform targetT = target.GetDeckTopSpot();
 
             // order card to move
-            newCard.GetComponent<Card>().MoveCard(1f, targetT, PublicVariables.TimeSpawnCardMove + (i * 0.2f));
+            newCard.GetComponent<Card_Sc>().MoveCard(1f, targetT, PublicVariables.TimeSpawnCardMove + (i * 0.2f));
 
             if (i + 1 >= card_SOs.Count)
             {
@@ -52,7 +52,7 @@ public class CE_AddCards : CardEffect_Base
         i--;
         if (i == 1000)
         {
-            Card.onMoveEnd -= CardAddMoveComplete;
+            Card_Sc.onMoveEnd -= CardAddMoveComplete;
             EndEffect();
         }
     }

@@ -6,15 +6,15 @@ using UnityEngine;
 using Decker;
 using Newtonsoft.Json.Bson;
 
-public class Card : MonoBehaviour
+public class Card_Sc : MonoBehaviour, IEffect
 {
 
-    public PawnController controller;
+    public PawnController_Sc controller;
     public TextMeshProUGUI tmpTitle;
     public TextMeshProUGUI tmpBody;
     public Card_SO CSO;
 
-    int effectIndex;
+    private int effectIndex;
 
     //Public delegates
     public delegate void OnCardPlayEnd(bool Bool);
@@ -89,7 +89,7 @@ public class Card : MonoBehaviour
     }
 
     //Start Couroutine for card movement
-    public void PlayCard(StTransform targetT, PawnController Controller)
+    public void PlayCard(StTransform targetT, PawnController_Sc Controller)
     {
         effectIndex = 0;
         controller = Controller;
@@ -138,11 +138,11 @@ public class Card : MonoBehaviour
         controller.AddCardToPlayPile(this);
         onMoveEnd -= ActivateCardAfterMove;
         effectIndex = 0;
-        PlayCardEffects();
+        ((IEffect)this).PlayEffects();
     }
 
     //Activate card effects
-    void PlayCardEffects()
+    void IEffect.PlayEffects()
     {
         if (effectIndex < CSO.cardEffects.Count)
         {
@@ -167,7 +167,7 @@ public class Card : MonoBehaviour
         yield return new WaitForSeconds(PublicVariables.TimeAfterEffect);
         CardEffect_Base.onEffectEnd -= PostCardEffect;
         effectIndex++;
-        PlayCardEffects();
+        ((IEffect)this).PlayEffects();
     }
 
 }

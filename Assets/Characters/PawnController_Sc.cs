@@ -9,7 +9,7 @@ using System;
 using Unity.Jobs;
 using System.Security.Claims;
 
-public class PawnController : MonoBehaviour
+public class PawnController_Sc : MonoBehaviour
 {
     [SerializeField]
     private GameObject Character_pfab;
@@ -21,14 +21,22 @@ public class PawnController : MonoBehaviour
     private Transform PlayPileTransform;
     [SerializeField]
     private Transform DeckTransform;
-    private PawnController target;
+    private PawnController_Sc target;
+
+    [SerializeField]
+    private List<GameObject> items;
 
     public GameMaster gameMaster;
     public Faction faction;
 
+    public int id;
+
     //Public delegates 
     public delegate void OnTurnEnd();
     public static OnTurnEnd onTurnEnd;
+
+    public delegate void RoundStart(int i);
+    public static RoundStart roundStart;
 
 
     void Start()
@@ -43,6 +51,7 @@ public class PawnController : MonoBehaviour
         DeckTransform.rotation = Quaternion.LookRotation(new Vector3(0f, 0f, -1f), new Vector3(0f, -1f, 0f));
         SpawnCharacter();
         SpawnDeck();  
+        InitializeItems();
     }
 
     void SpawnCharacter()
@@ -68,6 +77,25 @@ public class PawnController : MonoBehaviour
         }
     }
 
+    private void InitializeItems()
+    {
+        foreach (GameObject item in items)
+        {
+            var i = Instantiate(item, transform.position, transform.rotation);
+            if (i != null)
+            { 
+                var s = i.GetComponent<Item_Sc>();
+                s.controller = this;
+                s.BindTriggerType();
+            }
+        }
+    }
+
+    public void TriggerRoundStart()
+    {
+        roundStart?.Invoke(id);
+    }
+
     //Play turn. Draw top card of deck and activate PlayCard method of the drawn card.
     public void PlayTurn()
     {
@@ -79,8 +107,8 @@ public class PawnController : MonoBehaviour
         if (Deck.Count > 0)
         {
             Transform CurrentCard = TakeDeckTopCard();
-            Card.onCardPlayEnd += StartWaitAfterCardPlay;
-            CurrentCard.GetComponent<Card>().PlayCard(targetT, this);
+            Card_Sc.onCardPlayEnd += StartWaitAfterCardPlay;
+            CurrentCard.GetComponent<Card_Sc>().PlayCard(targetT, this);
         }
         else
         {
@@ -99,7 +127,7 @@ public class PawnController : MonoBehaviour
     //Wait After delegate event from card "OnCardPlayEnd". Start couroutine->.
     void StartWaitAfterCardPlay(bool B)
     {
-        Card.onCardPlayEnd -= StartWaitAfterCardPlay;
+        Card_Sc.onCardPlayEnd -= StartWaitAfterCardPlay;
         StartCoroutine(WaitAfterCardPlay(B));
     }
 
@@ -119,7 +147,7 @@ public class PawnController : MonoBehaviour
     }
 
     //Well... Adds card to playpile
-    public void AddCardToPlayPile(Card item)
+    public void AddCardToPlayPile(Card_Sc item)
     {
         PlayPile.Add(item.transform);
     }
@@ -156,10 +184,10 @@ public class PawnController : MonoBehaviour
     }
 
     //Get closest target for card effect based on Targetting enum and Faction enum (in Decker namespace).
-    public PawnController GetTarget(TargettingType t)
+    public PawnController_Sc GetTarget(TargettingType t)
     {
         float closestDistance = float.MaxValue;
-        PawnController closestTarget = null;
+        PawnController_Sc closestTarget = null;
 
         switch (t)
         {

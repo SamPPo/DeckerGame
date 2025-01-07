@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7ce6e4ecf8d1c94a9c0db1104ebd92e, type: 3}
+  m_Name: TestItem
+  m_EditorClassIdentifier: 
+  itemName: TestItem
+  itemEffects:
+  - magnitude: 1
+    cardEffect: {fileID: 11400000, guid: 6d9269033a4deee42a6350ee9ec9839c, type: 2}
+    Add_CSOs:
+    - {fileID: 11400000, guid: db6192216c4e49f428417bb52fe4e22c, type: 2}
+  triggerType: 0
+  itemSc: {fileID: 0}

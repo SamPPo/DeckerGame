@@ -26,6 +26,14 @@ namespace Decker
         neutral
     }
 
+    public enum TriggerType
+    {
+        roundStart,
+        onCardPlayed,
+        onReshuffle,
+        onRoundEnd
+    }
+
     [System.Serializable]
     public class CardEffect
     {
@@ -42,4 +50,12 @@ namespace Decker
     }
 }
 
+public interface IEffect
+{
+    public delegate void Asd();
+    public static Asd asd;
+
+    //void SetController(PawnController_Sc controller, IEffect owner);
+    public void PlayEffects();
+}
 

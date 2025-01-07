@@ -65,7 +65,7 @@ Transform:
   m_Children:
   - {fileID: 8799482547362586111}
   - {fileID: 1307298052392597513}
-  - {fileID: 2894345355415009472}
+  - {fileID: 2886637014904959940}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5062674298553808378
@@ -103,6 +103,8 @@ MonoBehaviour:
   Deck: []
   PlayPileTransform: {fileID: 8799482547362586111}
   DeckTransform: {fileID: 1307298052392597513}
+  items:
+  - {fileID: 6010911832633924608, guid: 1984253e952aac54b807c1809c262100, type: 3}
   gameMaster: {fileID: 0}
   faction: 0
 --- !u!114 &5329683327125137450
@@ -119,7 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 50
   SetArmor: 0
-  healthBar: {fileID: 2985911822052906875}
+  healthBar: {fileID: 2978484835253558399}
 --- !u!1 &7769457788215608461
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,7 +153,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7891257805018426501}
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
---- !u!1001 &8883406698646899302
+--- !u!1001 &8893924841122152802
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -159,10 +161,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7891257805018426501}
     m_Modifications:
-    - target: {fileID: 252405025634931292, guid: 31777b8ad2d2d7042898018976d09766, type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3937527433737922700, guid: 31777b8ad2d2d7042898018976d09766, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -201,11 +199,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6008633784172065446, guid: 31777b8ad2d2d7042898018976d09766, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 6
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 6008633784172065446, guid: 31777b8ad2d2d7042898018976d09766, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 6008633784172065446, guid: 31777b8ad2d2d7042898018976d09766, type: 3}
       propertyPath: m_LocalPosition.x
@@ -268,13 +266,13 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31777b8ad2d2d7042898018976d09766, type: 3}
---- !u!224 &2894345355415009472 stripped
+--- !u!224 &2886637014904959940 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6008633784172065446, guid: 31777b8ad2d2d7042898018976d09766, type: 3}
-  m_PrefabInstance: {fileID: 8883406698646899302}
+  m_PrefabInstance: {fileID: 8893924841122152802}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2985911822052906875 stripped
+--- !u!1 &2978484835253558399 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5924526713562651933, guid: 31777b8ad2d2d7042898018976d09766, type: 3}
-  m_PrefabInstance: {fileID: 8883406698646899302}
+  m_PrefabInstance: {fileID: 8893924841122152802}
   m_PrefabAsset: {fileID: 0}

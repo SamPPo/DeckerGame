@@ -15,12 +15,6 @@ MonoBehaviour:
   cardName: Slash
   cardEffects:
   - magnitude: 7
-    cardEffect: {fileID: 11400000, guid: 6d9269033a4deee42a6350ee9ec9839c, type: 2}
-    Add_CSOs:
-    - {fileID: 11400000, guid: 9803cc2baca9e6342b738e2892af4e94, type: 2}
-    - {fileID: 11400000, guid: 9803cc2baca9e6342b738e2892af4e94, type: 2}
-    - {fileID: 11400000, guid: 9803cc2baca9e6342b738e2892af4e94, type: 2}
-  - magnitude: 5
     cardEffect: {fileID: 11400000, guid: 3ac4a3733d6d8974cbfd272a9afa59c0, type: 2}
     Add_CSOs: []
   endTurn: 0
